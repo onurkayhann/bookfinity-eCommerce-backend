@@ -1,0 +1,24 @@
+{
+  "name": "bookfinity-ecommerce-backend",
+  "version": "1.0.0",
+  "description": "backend of bookfinity",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onurkayhann/bookfinity-eCommerce-backend.git"
+  },
+  "author": "Onur Kayhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onurkayhann/bookfinity-eCommerce-backend/issues"
+  },
+  "homepage": "https://github.com/onurkayhann/bookfinity-eCommerce-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
