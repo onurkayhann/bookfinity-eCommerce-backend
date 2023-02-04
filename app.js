@@ -5,33 +5,31 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-const api = process.env.API_URL;
-
 // Middleware
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get(`${api}/books`, (req, res) => {
-  const book = {
-    id: 1,
-    name: 'hair dresser',
-    image: 'some_url',
-  };
-  res.send(book);
-});
+// Routes
+const booksRouter = require('./routes/books');
+const categoriesRoutes = require('./routes/categories');
+const userRoutes = require('./routes/users');
+const ordersRoutes = require('./routes/orders');
 
-app.post(`${api}/books`, (req, res) => {
-  const newBook = req.body;
-  console.log(newBook);
-  res.send(newBook);
-});
+// Env Variable
+const api = process.env.API_URL;
+
+// Routers
+app.use(`${api}/books`, booksRouter);
+app.use(`${api}/categories`, categoriesRouter);
+app.use(`${api}/users`, usersRouter);
+app.use(`${api}/orders`, ordersRouter);
 
 // Database connection
 mongoose
   .connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: 'bookfinity',
+    dbName: 'bookfinity-database',
   })
   .then(() => {
     console.log('Database Connection is ready...');
