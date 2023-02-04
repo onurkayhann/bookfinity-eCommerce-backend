@@ -11,9 +11,9 @@ app.use(morgan('dev'));
 
 // Routes
 const booksRouter = require('./routes/books');
-const categoriesRoutes = require('./routes/categories');
-const userRoutes = require('./routes/users');
-const ordersRoutes = require('./routes/orders');
+const categoriesRouter = require('./routes/categories');
+const usersRouter = require('./routes/users');
+const ordersRouter = require('./routes/orders');
 
 // Env Variable
 const api = process.env.API_URL;
