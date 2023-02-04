@@ -2,16 +2,21 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 require('dotenv').config();
+
+// Cors
+app.use(cors());
+app.options('*', cors);
 
 // Middleware
 app.use(express.json());
 app.use(morgan('dev'));
 
 // Routes
-const booksRouter = require('./routes/books');
 const categoriesRouter = require('./routes/categories');
+const booksRouter = require('./routes/books');
 const usersRouter = require('./routes/users');
 const ordersRouter = require('./routes/orders');
 
@@ -19,8 +24,8 @@ const ordersRouter = require('./routes/orders');
 const api = process.env.API_URL;
 
 // Routers
-app.use(`${api}/books`, booksRouter);
 app.use(`${api}/categories`, categoriesRouter);
+app.use(`${api}/books`, booksRouter);
 app.use(`${api}/users`, usersRouter);
 app.use(`${api}/orders`, ordersRouter);
 
