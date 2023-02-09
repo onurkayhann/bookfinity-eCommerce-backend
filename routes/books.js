@@ -4,13 +4,28 @@ const express = require('express');
 const router = express.Router();
 
 // APIs
+
+// Get all books
 router.get(`/`, async (req, res) => {
   const bookList = await Book.find();
+
+  // const bookList = await Book.find().select('name author');
+  // select and you can get specific data - put minus(-) before a data and you exclude it
 
   if (!bookList) {
     res.status(500).json({ success: false });
   }
   res.send(bookList);
+});
+
+// Get one book
+router.get(`/:id`, async (req, res) => {
+  const book = await Book.findById(req.params.id);
+
+  if (!book) {
+    res.status(500).json({ success: false });
+  }
+  res.send(book);
 });
 
 router.post(`/`, async (req, res) => {
