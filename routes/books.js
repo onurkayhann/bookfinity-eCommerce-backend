@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Get all books
 router.get(`/`, async (req, res) => {
-  const bookList = await Book.find();
+  const bookList = await Book.find().populate('category');
 
   // const bookList = await Book.find().select('name author');
   // select and you can get specific data - put minus(-) before a data and you exclude it
@@ -20,7 +20,7 @@ router.get(`/`, async (req, res) => {
 
 // Get one book
 router.get(`/:id`, async (req, res) => {
-  const book = await Book.findById(req.params.id);
+  const book = await Book.findById(req.params.id).populate('category');
 
   if (!book) {
     res.status(500).json({ success: false });
