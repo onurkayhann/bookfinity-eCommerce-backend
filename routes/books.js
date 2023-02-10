@@ -2,6 +2,7 @@ const { Book } = require('../models/book');
 const { Category } = require('../models/category');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 // APIs
 
@@ -57,6 +58,10 @@ router.get(`/:id`, async (req, res) => {
 
 // Update book
 router.put('/:id', async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(400).send('Invalid book id');
+  }
+
   const category = await Category.findById(req.body.category);
   if (!category) return res.status(400).send('Invalid Category');
 
@@ -82,6 +87,26 @@ router.put('/:id', async (req, res) => {
   if (!book) return res.status(500).send('The book cannot be updated!');
 
   res.send(book);
+});
+
+// Delete book
+router.delete('/:id', (req, res) => {
+  Book.findByIdAndRemove(req.params.id)
+    .then((book) => {
+      if (book) {
+        return res.status(200).json({
+          success: true,
+          message: 'The book was successfully deleted',
+        });
+      } else {
+        return res
+          .status(404)
+          .json({ success: false, message: 'Book not found!' });
+      }
+    })
+    .catch((err) => {
+      return res.status(400).json({ success: false, error: err });
+    });
 });
 
 module.exports = router;
