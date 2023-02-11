@@ -109,7 +109,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-// Count for the Admin Panel
+// Get amount of books in the database
 router.get(`/get/count`, async (req, res) => {
   const bookCount = await Book.countDocuments();
 
@@ -119,6 +119,17 @@ router.get(`/get/count`, async (req, res) => {
   res.send({
     bookCount: bookCount,
   });
+});
+
+// Get featured books - with possibility to limit on the frontend
+router.get(`/get/featured/:count`, async (req, res) => {
+  const count = req.params.count ? req.params.count : 0;
+  const bookFeatured = await Book.find({ isFeatured: true }).limit(+count);
+
+  if (!bookFeatured) {
+    res.status(500).json({ success: false });
+  }
+  res.send(bookFeatured);
 });
 
 module.exports = router;
