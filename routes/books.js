@@ -111,7 +111,7 @@ router.delete('/:id', (req, res) => {
 
 // Count for the Admin Panel
 router.get(`/get/count`, async (req, res) => {
-  const bookCount = await Book.countDocuments((count) => count);
+  const bookCount = await Book.countDocuments();
 
   if (!bookCount) {
     res.status(500).json({ success: false });
