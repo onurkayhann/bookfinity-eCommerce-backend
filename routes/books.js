@@ -109,4 +109,16 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+// Count for the Admin Panel
+router.get(`/get/count`, async (req, res) => {
+  const bookCount = await Book.countDocuments((count) => count);
+
+  if (!bookCount) {
+    res.status(500).json({ success: false });
+  }
+  res.send({
+    bookCount: bookCount,
+  });
+});
+
 module.exports = router;
