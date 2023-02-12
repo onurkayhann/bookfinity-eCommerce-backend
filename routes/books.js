@@ -36,6 +36,7 @@ router.post(`/`, async (req, res) => {
 // Get all books
 router.get(`/`, async (req, res) => {
   let filter = {};
+
   if (req.query.categories) {
     filter = { category: req.query.categories.split(',') };
   }

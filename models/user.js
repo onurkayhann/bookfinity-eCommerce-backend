@@ -10,4 +10,13 @@ const userSchema = mongoose.Schema({
   },
 });
 
+// Converting _id to id for frontend purposes
+userSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+userSchema.set('toJSON', {
+  virtuals: true,
+});
+
 exports.User = mongoose.model('User', userSchema);
