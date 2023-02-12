@@ -35,7 +35,12 @@ router.post(`/`, async (req, res) => {
 
 // Get all books
 router.get(`/`, async (req, res) => {
-  const bookList = await Book.find().populate('category');
+  let filter = {};
+  if (req.query.categories) {
+    filter = { category: req.query.categories.split(',') };
+  }
+
+  const bookList = await Book.find(filter).populate('category');
 
   // const bookList = await Book.find().select('name author');
   // select and you can get specific data - put minus(-) before a data and you exclude it
