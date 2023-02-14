@@ -3,8 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 require('dotenv').config();
+const authJwt = require('./helper/jwt');
 
 // Cors
 app.use(cors());
@@ -13,6 +13,7 @@ app.options('*', cors);
 // Middleware
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(authJwt());
 
 // Routes
 const categoriesRouter = require('./routes/categories');
