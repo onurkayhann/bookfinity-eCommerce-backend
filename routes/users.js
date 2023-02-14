@@ -3,16 +3,27 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
-// ---- APIs ----
+// ---- APIs ---- //
 
 // Get all users
 router.get(`/`, async (req, res) => {
-  const userList = await User.find();
+  const userList = await User.find().select('-passwordHash'); // <-- exclude user password in the api call
 
   if (!userList) {
     res.status(500).json({ success: false });
   }
   res.send(userList);
+});
+
+// Get one user
+router.get(`/:id`, async (req, res) => {
+  const user = await User.findById(req.params.id).select('-passwordHash'); // <-- exclude user password in the api call
+
+  if (!user) {
+    res.status(500).json({ message: 'The user with that id was not found' });
+  }
+
+  res.status(200).send(user);
 });
 
 // Create user
