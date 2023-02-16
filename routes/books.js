@@ -115,7 +115,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-// Get amount of books in the database
+// Get amount of books in the BookFinity shop/database
 router.get(`/get/count`, async (req, res) => {
   const bookCount = await Book.countDocuments();
 
