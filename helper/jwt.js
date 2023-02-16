@@ -7,6 +7,7 @@ function authJwt() {
   return expressJwt({
     secret,
     algorithms: ['HS256'],
+    isRevoked: isRevoked, // to get isAdmin from the token
   }).unless({
     path: [
       {
@@ -18,6 +19,15 @@ function authJwt() {
       `${api}/users/register`,
     ],
   });
+}
+
+// if isAdmin is false, then reject users trying to get into the admin panel
+// if true, allow
+async function isRevoked(req, payload, done) {
+  if (!payload.isAdmin) {
+    done(null, true);
+  }
+  done();
 }
 
 module.exports = authJwt;
