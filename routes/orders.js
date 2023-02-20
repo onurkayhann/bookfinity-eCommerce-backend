@@ -51,6 +51,23 @@ router.post('/', async (req, res) => {
 
   const orderItemIdsResolved = await orderItemsIds; // To prevent Promise
 
+  // Calculating the total price internally in the backend
+  const totalPrices = await Promise.all(
+    orderItemIdsResolved.map(async (orderItemId) => {
+      const orderItem = await OrderItem.findById(orderItemId).populate(
+        'book',
+        'price'
+      );
+      const totalPrice = orderItem.book.price * orderItem.quantity;
+
+      return totalPrice;
+    })
+  );
+
+  const totalPrice = totalPrices.reduce((a, b) => a + b, 0);
+
+  console.log(totalPrices);
+
   let order = new Order({
     orderItems: orderItemIdsResolved,
     shippingAddress1: req.body.shippingAddress1,
@@ -60,7 +77,7 @@ router.post('/', async (req, res) => {
     country: req.body.country,
     phone: req.body.phone,
     status: req.body.status,
-    totalPrice: req.body.totalPrice,
+    totalPrice: totalPrice,
     user: req.body.user,
   });
 
