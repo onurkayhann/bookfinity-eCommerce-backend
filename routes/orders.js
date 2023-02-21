@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
     })
   );
 
-  const totalPrice = totalPrices.reduce((a, b) => a + b, 0);
+  const totalPrice = totalPrices.reduce((a, b) => a + b, 0); // Calculating the total amount internally in the backend
 
   console.log(totalPrices);
 
@@ -125,6 +125,26 @@ router.delete('/:id', (req, res) => {
     .catch((err) => {
       return res.status(500).json({ success: false, error: err });
     });
+});
+
+// Show total amount of sales for the admin in the admin panel
+router.get('/get/totalsales', async (req, res) => {
+  const totalSales = await Order.aggregate([
+    { $group: { _id: null, totalsales: { $sum: '$totalPrice' } } },
+  ]);
+
+  if (!totalSales) return res.status(400).send('Cannot get total sales!');
+
+  res.send({ totalSales: totalSales.pop().totalsales });
+});
+
+// Get amount of sales in the admin panel for the admin
+router.get(`/get/count`, async (req, res) => {
+  const orderCount = await Order.countDocuments();
+
+  if (!orderCount) res.status(500).json({ success: false });
+
+  res.send({ orderCount: orderCount });
 });
 
 module.exports = router;
