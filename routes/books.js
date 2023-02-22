@@ -39,10 +39,10 @@ const uploadOptions = multer({ storage: storage }); // Passing this to POST endp
 // Create book
 router.post(`/`, uploadOptions.single('image'), async (req, res) => {
   const category = await Category.findById(req.body.category);
-  if (!category) return res.status(400).send('Invalid Category');
+  if (!category) return res.status(400).send('Invalid Category'); // error message if category is invalid
 
   const file = req.file;
-  if (!file) return res.status(400).send('Please upload a photo');
+  if (!file) return res.status(400).send('Please upload a photo'); // error message if photo doesn't exist
 
   const fileName = req.file.filename; // Uploaded photo url
   const photoPath = `${req.protocol}://${req.get('host')}/public/uploads/`; // Uploaded photo url
