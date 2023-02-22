@@ -41,6 +41,9 @@ router.post(`/`, uploadOptions.single('image'), async (req, res) => {
   const category = await Category.findById(req.body.category);
   if (!category) return res.status(400).send('Invalid Category');
 
+  const file = req.file;
+  if (!file) return res.status(400).send('Please upload a photo');
+
   const fileName = req.file.filename; // Uploaded photo url
   const photoPath = `${req.protocol}://${req.get('host')}/public/uploads/`; // Uploaded photo url
 
