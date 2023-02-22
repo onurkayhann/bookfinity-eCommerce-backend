@@ -3,20 +3,37 @@ const { Category } = require('../models/category');
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer'); // To upload files, for example uploading a photos of specific book
 
-// APIs
+// --- APIs --- \\
+
+// Multer API, to be able to upload photos
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads');
+  },
+  filename: function (req, file, cb) {
+    const fileName = file.originalname.split(' ').join('-');
+    cb(null, `${fileName}-${Date.now()}.${extension}`);
+  },
+});
+
+const uploadOptions = multer({ storage: storage }); // Passing this to POST endpoint where Admin creates books
 
 // Create book
-router.post(`/`, async (req, res) => {
+router.post(`/`, uploadOptions.single('image'), async (req, res) => {
   const category = await Category.findById(req.body.category);
   if (!category) return res.status(400).send('Invalid Category');
+
+  const fileName = req.file.filename; // Uploaded photo url
+  const photoPath = `${req.protocol}://${req.get('host')}/public/uploads/`; // Uploaded photo url
 
   const book = new Book({
     name: req.body.name,
     author: req.body.author,
     description: req.body.description,
     richDescription: req.body.richDescription,
-    image: req.body.image,
+    image: `${photoPath}${fileName}`, // --> "http://localhost:3000/public/uploads/image-3333"
     genre: req.body.genre,
     price: req.body.price,
     category: req.body.category,
