@@ -188,4 +188,38 @@ router.get(`/get/featured/:count`, async (req, res) => {
   res.send(bookFeatured);
 });
 
+// Update Book gallery images
+router.put(
+  '/gallery-images/:id',
+  uploadOptions.array('images', 10),
+  async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      res.status(400).send('Invalid book id');
+    }
+
+    const files = req.files;
+    let imagesPaths = [];
+    const photoPath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+    if (files) {
+      files.map((file) => {
+        imagesPaths.push(`${photoPath}${file.filename}`);
+      });
+    }
+
+    const updatedBook = await Book.findByIdAndUpdate(
+      req.params.id,
+      {
+        images: imagesPaths,
+      },
+      { new: true }
+    );
+
+    if (!updatedBook)
+      return res.status(500).send('The book gallery cannot be updated!');
+
+    res.send(updatedBook);
+  }
+);
+
 module.exports = router;
