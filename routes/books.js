@@ -99,7 +99,7 @@ router.get(`/:id`, async (req, res) => {
 });
 
 // Update book
-router.put('/:id', async (req, res) => {
+router.put('/:id', uploadOptions.single('image'), async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
     res.status(400).send('Invalid book id');
   }
@@ -107,14 +107,28 @@ router.put('/:id', async (req, res) => {
   const category = await Category.findById(req.body.category);
   if (!category) return res.status(400).send('Invalid Category');
 
-  const book = await Book.findByIdAndUpdate(
+  const book = await Book.findById(req.params.id);
+  if (!book) return res.status(400).send('Invalid book');
+
+  const file = req.file;
+  let photoPath;
+
+  if (file) {
+    const fileName = file.filename;
+    const photoPath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+    photoPath = `${photoPath}${fileName}`;
+  } else {
+    photoPath = book.image;
+  }
+
+  const updatedBook = await Book.findByIdAndUpdate(
     req.params.id,
     {
       name: req.body.name,
       author: req.body.author,
       description: req.body.description,
       richDescription: req.body.richDescription,
-      image: req.body.image,
+      image: photoPath,
       genre: req.body.genre,
       price: req.body.price,
       category: req.body.category,
@@ -126,9 +140,9 @@ router.put('/:id', async (req, res) => {
     { new: true }
   );
 
-  if (!book) return res.status(500).send('The book cannot be updated!');
+  if (!updatedBook) return res.status(500).send('The book cannot be updated!');
 
-  res.send(book);
+  res.send(updatedBook);
 });
 
 // Delete book
