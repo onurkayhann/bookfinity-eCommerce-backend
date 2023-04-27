@@ -75,7 +75,7 @@ Will be deployed in the future, stay tuned.
 
 ## Sitemap for backend
 
-<img src='./public/uplods/sitemap_backend.png' alt='sitemap' />
+<img src='./public/uploads/sitemap_backend.png' alt='sitemap' />
 
 ## Test
 I used Mocha, Mocha-Http, Chai, and Chai-Http to test some important routes on the backend. Everything is documentated and can be reached in the test map, on the backend.
