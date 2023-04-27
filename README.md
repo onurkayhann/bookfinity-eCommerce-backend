@@ -84,6 +84,10 @@ I used Mocha, Mocha-Http, Chai, and Chai-Http to test some important routes on t
 
 MIT license
 
+## About Biketrace
+Biketrace is a startup company, and funded by Mauro Pereira at 2020. They're at the early stage of their development, they don't earn money. The company depends on students, and the valueable help from them. The idea is to create smart locks for Bikecycles.
+[Visit Biketrace here](https://www.biketrace.se/eng/index.html) 
+
 ## Thanks to providers
 
 I am super grateful that some people from the UX Designer program participated in my pre-work, as well as experienced App Developers and allowed me, to interview them. Thank you Denise, Rahim, Deniz, Nadin, and Behjat.
