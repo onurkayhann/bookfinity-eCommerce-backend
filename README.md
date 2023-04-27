@@ -7,7 +7,7 @@
 <br />
 
 <h4>Project links</h4>
-<a href="https://github.com/onurkayhann/bookfinity-eCommerce-frontend/tree/master" target="_blank">Frontend Repo for the App</a> | <a href="bookfinity-eCommerce-backend" target="_blank">Backend Repo for the App</a> | <a href="#" target="_blank">Figma work</a> | <a href="https://docs.google.com/document/d/1nj10ZCLyjz71Fj5kOzgAPagk4aVeViotq3MK20dJlLY/edit" target="_blank">Interviews</a> | <a href="https://docs.google.com/document/d/1dzh42ionl98aSxwSjv6g-yKMxyIjbsMO15JAyofy2CE/edit" target="_blank">Backlog</a> | <a href='bookfinity-eCommerce-frontend/projects?query=is%3Aopen' target='_blank'>Sprints</a>
+<a href="https://github.com/onurkayhann/bookfinity-eCommerce-frontend/tree/master" target="_blank">Frontend Repo for the App</a> | <a href="bookfinity-eCommerce-backend" target="_blank">Backend Repo for the App</a> | <a href="#" target="_blank">Figma work</a> | <a href="https://docs.google.com/document/d/1nj10ZCLyjz71Fj5kOzgAPagk4aVeViotq3MK20dJlLY/edit" target="_blank">Interviews</a> | <a href="https://docs.google.com/document/d/1dzh42ionl98aSxwSjv6g-yKMxyIjbsMO15JAyofy2CE/edit" target="_blank">Backlog</a> | <a href='bookfinity-eCommerce-backend/projects?query=is%3Aopen' target='_blank'>Sprints</a>
 
 ### Used languages to create this App
 
